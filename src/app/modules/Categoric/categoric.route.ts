@@ -9,22 +9,26 @@ const router = express.Router();
 
 router.post(
   '/create-category',
-  // auth( USER_ROLE.admin),
-  CategoryController.createCategory,
-  // validateRequest(createAdminValidationSchema)
+  CategoryController.createManiCategory,
 );
-
-router.post(
-  '/create-main-category',
-  // auth( USER_ROLE.admin),
-  CategoryController.createMainCategory,
-  // validateRequest(createAdminValidationSchema)
-);
-
-router.post(
+router.put(
   '/create-sub-category',
   // auth( USER_ROLE.admin),
-  CategoryController.createSubCategory,
+  CategoryController.updateSubCategory,
+  // validateRequest(createAdminValidationSchema)
+);
+
+router.put(
+  '/create-category',
+  // auth( USER_ROLE.admin),
+  CategoryController.updateCategory,
+  // validateRequest(createAdminValidationSchema)
+);
+
+router.get(
+  '/',
+  // auth( USER_ROLE.admin),
+  CategoryController.getCategory,
   // validateRequest(createAdminValidationSchema)
 );
 
