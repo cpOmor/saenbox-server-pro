@@ -52,6 +52,7 @@ const updateCategory = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const updateSubCategory = catchAsync(async (req, res) => {
   const result = await CategoryService.updateSubCategory(req?.file, req.body);
   sendResponse(res, {

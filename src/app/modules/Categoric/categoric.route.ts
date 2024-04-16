@@ -7,10 +7,7 @@ import { CategoryController } from './categoric.controller';
 
 const router = express.Router();
 
-router.post(
-  '/create-category',
-  CategoryController.createManiCategory,
-);
+router.post('/create-category', CategoryController.createManiCategory);
 router.put(
   '/create-sub-category',
   // auth( USER_ROLE.admin),

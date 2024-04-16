@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from 'react';
+
+export const IP: React.FC = () => {
+  const [publicIP, setPublicIP] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPublicIP = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        setPublicIP(data.ip);
+      } catch (error) {
+        console.error('Error fetching public IP:', error);
+      }
+    };
+
+    fetchPublicIP();
+  }, []);
+
+  return (
+    <div>
+      <h1>Public IP Address:</h1>
+      <p>{publicIP}</p>
+    </div>
+  );
+};
+
