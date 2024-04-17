@@ -1,0 +1,14 @@
+1.. area 
+2.. name
+3.. age range
+
+
+{
+    area : Dhaka,
+    total : 12,
+}
+
+{
+    area : Noakhali,
+    total : 7,
+}

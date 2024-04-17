@@ -2,7 +2,7 @@ import express from 'express';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { USER_ROLE } from '../User/user.constant';
-import { ProductControllers } from './product.controller';
+import { ProductControllers } from './visitors.controller';
 
 const router = express.Router();
 
