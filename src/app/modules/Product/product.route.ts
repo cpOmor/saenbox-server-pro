@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   '/add-product',
-  auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
+  // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
   ProductControllers.createProduct,
 );

@@ -1,8 +1,47 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Types } from 'mongoose';
 
+export type TBasicInformation = {
+  // basicInformation: {
+    productName: string;
+    gallery: string[];
+    category: string;
+    description: string;
+  // };
+};
+
+export type TSpecification = {
+  specification: {
+    brand: string;
+    weight: string;
+    variant: [
+      {
+        image: string;
+        price: number;
+        name: string;
+        stock: number;
+      },
+    ];
+  };
+};
+
+export type TSalesInfo = {
+  salesInfo: {
+    quantity: number;
+    salesPrice: number;
+    regularPrice: number;
+    minParches: number;
+    maxParches: number;
+  };
+};
+
+export type TShipping = {
+  shipping: { weight: string; parcelSize: string; dangerousGoods: boolean };
+};
+
 export type TAttribute = {
   attribute: [{ name: string; title: string[] }];
+  productName: string;
 };
 
 export type TRatings = {
@@ -11,14 +50,21 @@ export type TRatings = {
 
 export type TProduct = {
   seller: Types.ObjectId;
-  title: string;
-  salesPrice: string;
-  regularPrice: string;
-  shippingConst: string;
-  quantity: number;
-  attribute: TAttribute;
-  category: string;
-  description: string;
+  basicInformation: TBasicInformation;
+  specification: {
+    brand: string;
+    weight: string;
+    variant: [
+      {
+        image: string;
+        price: number;
+        name: string;
+        stock: number;
+      },
+    ];
+  };
+  salesInfo: TSalesInfo;
+  shipping: TShipping;
   ratings: TRatings;
-  tag: string[]; 
+  // tag: string[];
 };
