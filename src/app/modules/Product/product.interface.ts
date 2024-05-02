@@ -66,5 +66,22 @@ export type TProduct = {
   salesInfo: TSalesInfo;
   shipping: TShipping;
   ratings: TRatings;
+  isDraft : boolean
   // tag: string[];
 };
+
+
+
+export type TProductQuery = {
+  meta: {
+    total: number;
+  };
+  result: TProduct[];
+}
+
+export type TQuery = {
+  [key: string]: unknown;
+  createdAtMin?: Date;
+  createdAtMax?: Date;
+  // Add other query parameters as needed
+}

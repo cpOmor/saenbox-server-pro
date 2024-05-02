@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import QueryBuilder from '../../builder/QueryBuilder';
-import { TProduct } from './product.interface';
+import { TProduct, TProductQuery, TQuery } from './product.interface';
 import { ProductModel } from './product.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { productFields } from './product.constant';
@@ -14,7 +14,7 @@ const createProductIntoDB = async (payload: TProduct) => {
 
 const getAllProductFromDB = async (query: Record<string, unknown>) => {
   const productQuery = new QueryBuilder(
-    ProductModel.find().populate('seller'),
+    ProductModel.find(),
     query,
   )
     .search(productFields)
@@ -32,6 +32,45 @@ const getAllProductFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+const getNewProductFromDB = async (query: TQuery): Promise<TProductQuery> => {
+  // Extract createdAt range from the query
+  const { createdAtMin, createdAtMax, ...restQuery } = query;
+
+  // Build the base query
+  const baseQuery = ProductModel.find();
+
+  // Apply createdAt filter if provided
+  if (createdAtMin && createdAtMax) {
+    baseQuery
+      .where('createdAt')
+      .gte(createdAtMin as any)
+      .lte(createdAtMax as any);
+  } else if (createdAtMin) {
+    baseQuery.where('createdAt').gte(createdAtMin as any);
+  } else if (createdAtMax) {
+    baseQuery.where('createdAt').lte(createdAtMax as any);
+  }
+
+  // Use QueryBuilder for other operations (search, filter, sort, paginate, fields)
+  const productQuery = new QueryBuilder<TProduct>(baseQuery, restQuery)
+    .search(productFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  // Execute the query and count total
+  const [result, total] = await Promise.all([
+    productQuery.modelQuery,
+    productQuery.countTotal(),
+  ]);
+
+  return {
+    meta: { total  },
+    result,
+  };
+};
+
 const getProductBySellerFromDB = async (
   sellerId: Record<string, unknown>,
   query: Record<string, unknown>,
@@ -44,7 +83,10 @@ const getProductBySellerFromDB = async (
   // }
   // return result;
 
-  const productQuery = new QueryBuilder(ProductModel.find(sellerId).populate('seller'), query)
+  const productQuery = new QueryBuilder(
+    ProductModel.find(sellerId).populate('seller'),
+    query,
+  )
     .search(productFields)
     .filter()
     .sort()
@@ -54,7 +96,6 @@ const getProductBySellerFromDB = async (
   const result = await productQuery.modelQuery;
   const meta = await productQuery.countTotal();
 
-  
   if (result.length < 1) {
     throw new AppError(httpStatus.NOT_FOUND, 'Not sell this time!');
   }
@@ -66,7 +107,8 @@ const getProductBySellerFromDB = async (
 };
 
 const getSingleProductFromDB = async (id: string) => {
-  const result = await ProductModel.findById(id).populate('seller');
+  // const result = await ProductModel.findById(id).populate('seller');
+  const result = await ProductModel.findById(id);
   return result;
 };
 
@@ -99,6 +141,7 @@ const dropToProductFromDB = async (id: string) => {
 export const ProductServices = {
   createProductIntoDB,
   getAllProductFromDB,
+  getNewProductFromDB,
   getProductBySellerFromDB,
   getSingleProductFromDB,
   updateProductIntoDB,
