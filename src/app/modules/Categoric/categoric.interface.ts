@@ -1,11 +1,10 @@
 import { Types } from 'mongoose';
 
 export type TCategoric = {
-  user: Types.ObjectId;
   mainCategory: string;
   subCategory?: string[];
   category?: string[];
-  Img?: string;
+  image: string;
   isDeleted: boolean;
 };
 export type TMainCategoric = {

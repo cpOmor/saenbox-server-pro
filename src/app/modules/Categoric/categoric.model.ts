@@ -3,12 +3,6 @@ import { TCategoric } from './categoric.interface';
 
 const categorySchema = new Schema<TCategoric>(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      required: [true, 'User id is required'],
-      ref: 'User',
-    },
-
     mainCategory: {
       type: String,
       required: [true, 'Main title is required'],
@@ -18,9 +12,12 @@ const categorySchema = new Schema<TCategoric>(
       type: [String],
     },
 
-    category: {
-      type: [String],
-    },
+    category: [
+      {
+        title: { type: String },
+        image: { type: String },
+      },
+    ],
     // Img: { type: String, default: '' },
     isDeleted: {
       type: Boolean,

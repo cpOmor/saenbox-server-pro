@@ -18,17 +18,7 @@ export const category = {
 };
 
 const createManiCategory = async (file: any, payload: TCategoric) => {
-  // find user by id
-
-  const user = await User.findById(payload.user);
-
-  if (!user) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'You are not logged in');
-  }
-
-  // set  _id as user
-  payload.user = user._id; //reference _id
-
+  // find user by
   // create a  category
   const result = await CategoryModel.create(payload);
   return result;
@@ -99,24 +89,22 @@ const updateSubCategory = async (file: any, payload: TCategoric) => {
     { new: true }, // To return the updated document
   );
 
-
   return result;
 };
 
-const updateCategory = async (file: any, payload: TCategoric) => {
-  const category = await CategoryModel.findOne({
+const updateCategory = async (payload: TCategoric) => {
+  const mainCategory = await CategoryModel.findOne({
     mainCategory: payload.mainCategory,
   });
 
   // Check if the category exists
-  if (!category) {
+  if (!mainCategory) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Cannot find category');
   }
 
   if (!category.subCategory) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Cannot find Sub category');
   }
-
 
   if (!category.category) {
     // throw new AppError(httpStatus.OK, 'Category update');
@@ -143,8 +131,29 @@ const updateCategory = async (file: any, payload: TCategoric) => {
   return result;
 };
 
+const getSingleCategory = async () => {
+  const isCategory = await CategoryModel.find();
+
+  const category: string[] = [];
+  // const mergedArray  = [];
+
+  isCategory.map((item) => {
+    category.push(...item.category as string[])
+    
+  });
+  const uniqueCategory = new Map();
+
+  category.forEach(obj => {
+      uniqueCategory.set(obj.title as any, obj);
+  });
+  
+  const result = Array.from(uniqueCategory.values());
+  return result;
+};
+
 const getCategory = async () => {
-  const result = await CategoryModel.find().limit(13);
+  const result = await CategoryModel.find();
+
   return result;
 };
 
@@ -153,4 +162,5 @@ export const CategoryService = {
   updateSubCategory,
   updateCategory,
   getCategory,
+  getSingleCategory,
 };

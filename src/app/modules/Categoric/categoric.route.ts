@@ -29,4 +29,11 @@ router.get(
   // validateRequest(createAdminValidationSchema)
 );
 
+router.get(
+  '/single-category',
+  // auth( USER_ROLE.admin),
+  CategoryController.getSingleCategory,
+  // validateRequest(createAdminValidationSchema)
+);
+
 export const CategoryRoute = router;

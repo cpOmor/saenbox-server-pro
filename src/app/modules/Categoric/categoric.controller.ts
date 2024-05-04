@@ -23,6 +23,16 @@ const getCategory = catchAsync(async (req, res) => {
   });
 });
 
+const getSingleCategory = catchAsync(async (req, res) => {
+  const result = await CategoryService.getSingleCategory();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'main category',
+    data: result,
+  });
+});
+
 // const createSubCategory = catchAsync(async (req, res) => {
 //   const result = await CategoryService.createSubCategory(req.body);
 //   sendResponse(res, {
@@ -68,4 +78,5 @@ export const CategoryController = {
   updateSubCategory,
   updateCategory,
   getCategory,
+  getSingleCategory
 };
