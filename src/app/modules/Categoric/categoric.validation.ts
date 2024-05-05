@@ -1,18 +1,12 @@
 // import { z } from 'zod';
 
-// export const createAdminValidationSchema = z.object({
-//   body: z.object({
-//     // password: z.string().max(20).optional(),
-//     admin: z.object({
-//       name: createUserNameValidationSchema,
-//       gender: z.enum([...Gender] as [string, ...string[]]),
-//       dateOfBirth: z.string().optional(),
-//       email: z.string().email(),
-//       contactNo: z.string(),
-//       profileImg: z.string().optional(),
-//     }),
-//   }),
-// });
+import { z } from 'zod';
+
+export const mainCategoryValidationSchema = z.object({
+  body: z.object({
+    mainCategory: z.string(),
+  }),
+});
 
 // const updateUserNameValidationSchema = z.object({
 //   firstName: z.string().min(3).max(20).optional(),

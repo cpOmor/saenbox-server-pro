@@ -52,6 +52,9 @@ const updateCategory1 = async (file: any, payload: TCategoric) => {
   return result;
 };
 
+
+
+
 const updateSubCategory = async (file: any, payload: TCategoric) => {
   // Find category by mainCategory
   const category = await CategoryModel.findOne({
