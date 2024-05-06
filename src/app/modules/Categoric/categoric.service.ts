@@ -52,9 +52,6 @@ const updateCategory1 = async (file: any, payload: TCategoric) => {
   return result;
 };
 
-
-
-
 const updateSubCategory = async (file: any, payload: TCategoric) => {
   // Find category by mainCategory
   const category = await CategoryModel.findOne({
@@ -95,40 +92,55 @@ const updateSubCategory = async (file: any, payload: TCategoric) => {
   return result;
 };
 
-const updateCategory = async (payload: TCategoric) => {
+const createCategory = async (payload: TCategoric) => {
   const mainCategory = await CategoryModel.findOne({
     mainCategory: payload.mainCategory,
   });
 
   // Check if the category exists
   if (!mainCategory) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'Cannot find category');
+    throw new AppError(httpStatus.BAD_REQUEST, 'Cannot find main category');
   }
 
   if (!category.subCategory) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Cannot find Sub category');
   }
 
-  if (!category.category) {
-    // throw new AppError(httpStatus.OK, 'Category update');
-    return;
-  }
+  console.log(
+    payload.category,
+    'file name : categoric.service line number : +-115',
+  );
 
-  const isCategory: string[] = payload.category;
+  //   {
+  //     "mainCategory": "Fasion 2",
+  //     "subCategory": [
+  //         "one3"
+  //     ],
+  //     "category": [
+  //         {
+  //             "title": "ths suba",
+  //             "image": "image"
+  //         },
+  //         {
+  //             "title": "this suba",
+  //             "image": "image"
+  //         }
+  //     ]
+  // }
 
-  // Check if the subcategory already exists
-  if (category.category.includes(isCategory)) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      `${payload.category} is already added`,
-    );
-  }
+  // const category = payload.category;
 
-  // Push new subcategory into the existing category
+  // if (category.category.includes(isCategory)) {
+  //   throw new AppError(
+  //     httpStatus.BAD_REQUEST,
+  //     `${payload.category} is already added`,
+  //   );
+  // }
+
   const result = await CategoryModel.findOneAndUpdate(
     { mainCategory: payload.mainCategory },
-    { $push: { category: payload.category } },
-    { new: true }, // To return the updated document
+    { category: payload.category },
+    { new: true },
   );
 
   return result;
@@ -141,15 +153,35 @@ const getSingleCategory = async () => {
   // const mergedArray  = [];
 
   isCategory.map((item) => {
-    category.push(...item.category as string[])
-    
+    category.push(...(item.category as string[]));
   });
   const uniqueCategory = new Map();
 
-  category.forEach(obj => {
-      uniqueCategory.set(obj.title as any, obj);
+  category.forEach((obj) => {
+    uniqueCategory.set(obj.title as any, obj);
   });
-  
+
+  const result = Array.from(uniqueCategory.values());
+  return result;
+};
+
+const getSubCategory = async () => {
+  const isCategory = await CategoryModel.find();
+
+  console.log(isCategory, 'file name : categoric.service line number : +-162');
+
+  const category: string[] = [];
+  // const mergedArray  = [];
+
+  isCategory.map((item) => {
+    category.push(...(item.category as string[]));
+  });
+  const uniqueCategory = new Map();
+
+  category.forEach((obj) => {
+    uniqueCategory.set(obj.title as any, obj);
+  });
+
   const result = Array.from(uniqueCategory.values());
   return result;
 };
@@ -163,7 +195,8 @@ const getCategory = async () => {
 export const CategoryService = {
   createManiCategory,
   updateSubCategory,
-  updateCategory,
+  createCategory,
   getCategory,
   getSingleCategory,
+  getSubCategory,
 };

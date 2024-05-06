@@ -9,7 +9,7 @@ import { mainCategoryValidationSchema } from './categoric.validation';
 
 const router = express.Router();
 
-router.post('/create-category', CategoryController.createManiCategory);
+router.post('/create-main-category', CategoryController.createManiCategory);
 
 
 router.put(
@@ -23,7 +23,7 @@ router.put(
   '/create-category',
   // auth( USER_ROLE.admin),
   validateRequest(mainCategoryValidationSchema),
-  CategoryController.updateCategory,
+  CategoryController.createCategory,
 );
 
 router.get(
@@ -37,6 +37,13 @@ router.get(
   '/single-category',
   // auth( USER_ROLE.admin),
   CategoryController.getSingleCategory,
+  // validateRequest(createAdminValidationSchema)
+);
+
+router.get(
+  '/sub-category',
+  // auth( USER_ROLE.admin),
+  CategoryController.getSubCategory,
   // validateRequest(createAdminValidationSchema)
 );
 
