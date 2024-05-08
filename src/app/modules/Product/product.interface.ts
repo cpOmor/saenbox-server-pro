@@ -3,10 +3,10 @@ import { Types } from 'mongoose';
 
 export type TBasicInformation = {
   // basicInformation: {
-    productName: string;
-    gallery: string[];
-    category: string;
-    description: string;
+  productName: string;
+  gallery: string[];
+  category: string;
+  description: string;
   // };
 };
 
@@ -62,26 +62,25 @@ export type TProduct = {
         stock: number;
       },
     ];
+    returns: boolean;
   };
   salesInfo: TSalesInfo;
   shipping: TShipping;
   ratings: TRatings;
-  isDraft : boolean
+  isDraft: boolean;
   // tag: string[];
 };
-
-
 
 export type TProductQuery = {
   meta: {
     total: number;
   };
   result: TProduct[];
-}
+};
 
 export type TQuery = {
   [key: string]: unknown;
   createdAtMin?: Date;
   createdAtMax?: Date;
   // Add other query parameters as needed
-}
+};

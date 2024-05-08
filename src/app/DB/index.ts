@@ -31,7 +31,7 @@ const seedSuperAdmin = async () => {
       await User.create(superAdmin);
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

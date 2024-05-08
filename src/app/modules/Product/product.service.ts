@@ -6,17 +6,32 @@ import QueryBuilder from '../../builder/QueryBuilder';
 import { productFields } from './product.constant';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
+import { User } from '../User/user.model';
+import { USER_ROLE } from '../User/user.constant';
 
 const createProductIntoDB = async (payload: TProduct) => {
+  // console.log(payload, 'file name : product.service line number : +-13');
+
+  const findUser = await User.findOne({
+    email: payload.seller,
+    role: USER_ROLE.seller,
+  });
+
+  if (!findUser) {
+    throw new AppError(
+      httpStatus.UNAUTHORIZED,
+      'You are not authorized user, please agin login',
+    );
+  }
+
+  payload.seller = findUser._id;
+
   const result = await ProductModel.create(payload);
   return result;
 };
 
 const getAllProductFromDB = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(
-    ProductModel.find(),
-    query,
-  )
+  const productQuery = new QueryBuilder(ProductModel.find(), query)
     .search(productFields)
     .filter()
     .sort()
@@ -66,7 +81,7 @@ const getNewProductFromDB = async (query: TQuery): Promise<TProductQuery> => {
   ]);
 
   return {
-    meta: { total  },
+    meta: { total },
     result,
   };
 };
@@ -107,8 +122,8 @@ const getProductBySellerFromDB = async (
 };
 
 const getSingleProductFromDB = async (id: string) => {
-  // const result = await ProductModel.findById(id).populate('seller');
-  const result = await ProductModel.findById(id);
+  const result = await ProductModel.findById(id).populate('seller');
+  // const result = await ProductModel.findById(id);
   return result;
 };
 

@@ -5,7 +5,8 @@ const productSchema = new Schema<TProduct>(
   {
     seller: {
       type: Schema.Types.ObjectId,
-      ref: 'Sellers',
+      ref: 'User',
+      required : [true, "You are not authenticate user"]
     },
     basicInformation: {
       productName: {
@@ -52,6 +53,10 @@ const productSchema = new Schema<TProduct>(
           type: String,
           required: [true, 'Variant stock is required'],
         },
+      },
+      returns: {
+        type: Boolean,
+        default: true,
       },
     },
     salesInfo: {
