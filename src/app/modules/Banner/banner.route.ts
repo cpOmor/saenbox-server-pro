@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   '/create-banner',
-  auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
+  // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
   BannerControllers.createBanner,
 );
@@ -17,14 +17,14 @@ router.get('/', BannerControllers.getBanner);
 
 router.patch(
   '/:id',
-  auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
+  // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.updateCourseValidationSchema),
   BannerControllers.updateBanner,
 );
 
 router.delete(
   '/:id',
-  auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
+  // auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
   BannerControllers.deleteBanner,
 );
 
