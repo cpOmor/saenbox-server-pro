@@ -1,8 +1,7 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { ProductServices } from './product.service';  
-
+import { ProductServices } from './product.service';
 
 const createProduct = catchAsync(async (req, res) => {
   const result = await ProductServices.createProductIntoDB(req.body);
@@ -39,7 +38,8 @@ const getNewProduct = catchAsync(async (req, res) => {
   });
 });
 
-const getProductBySeller = catchAsync(async (req, res) => {  
+const getProductBySeller = catchAsync(async (req, res) => {
+
   const result = await ProductServices.getProductBySellerFromDB(
     req.params,
     req.query,
@@ -82,6 +82,8 @@ const updateProduct = catchAsync(async (req, res) => {
 
 const deleteProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
+  console.log(  id  , 'file name : product.controller line number : +-85');
+  
   const result = await ProductServices.deleteProductFromDB(id);
 
   sendResponse(res, {

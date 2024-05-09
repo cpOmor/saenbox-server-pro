@@ -14,10 +14,10 @@ const sellerSchema = new Schema<TSeller>(
       ref: 'User',
     },
 
-    name: {
-      type: userNameSchema,
-      required: [true, 'Name is required'],
-    },
+    // name: {
+    //   type: userNameSchema,
+    //   required: [true, 'Name is required'],
+    // },
     gender: {
       type: String,
       enum: {

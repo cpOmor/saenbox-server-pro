@@ -68,6 +68,7 @@ export type TProduct = {
   shipping: TShipping;
   ratings: TRatings;
   isDraft: boolean;
+  isDelete: boolean;
   // tag: string[];
 };
 
