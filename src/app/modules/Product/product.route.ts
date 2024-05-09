@@ -16,7 +16,7 @@ router.get('/', ProductControllers.getAllProducts);
 
 router.get('/new-arrivals', ProductControllers.getNewProduct);
 
-router.get('/seller/:title', ProductControllers.getProductBySeller);
+router.get('/seller/:email', ProductControllers.getProductBySeller);
 
 router.get('/:id', ProductControllers.getSingleProduct);
 
@@ -27,8 +27,8 @@ router.patch(
   ProductControllers.updateProduct,
 );
 
-router.delete(
-  '/:id',
+router.put(
+  '/delete/:id',
   // auth(USER_ROLE.saenBoxSeller, USER_ROLE.seller, USER_ROLE.admin),
   ProductControllers.deleteProduct,
 );

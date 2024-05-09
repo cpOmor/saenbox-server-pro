@@ -37,7 +37,6 @@ const getAllProductFromDB = async (query: Record<string, unknown>) => {
     .sort()
     .paginate()
     .fields();
-
   const result = await productQuery.modelQuery;
   const meta = await productQuery.countTotal();
 
@@ -51,6 +50,8 @@ const getNewProductFromDB = async (query: TQuery): Promise<TProductQuery> => {
   // Extract createdAt range from the query
   const { createdAtMin, createdAtMax, ...restQuery } = query;
 
+  console.log(   'enter'  , 'file name : product.service line number : +-54');
+  
   // Build the base query
   const baseQuery = ProductModel.find();
 
@@ -87,7 +88,7 @@ const getNewProductFromDB = async (query: TQuery): Promise<TProductQuery> => {
 };
 
 const getProductBySellerFromDB = async (
-  sellerId: Record<string, unknown>,
+  email: Record<string, unknown>,
   query: Record<string, unknown>,
 ) => {
   // const result = await ProductModel.find( sellerId ).populate('seller');
@@ -99,7 +100,7 @@ const getProductBySellerFromDB = async (
   // return result;
 
   const productQuery = new QueryBuilder(
-    ProductModel.find(sellerId).populate('seller'),
+    ProductModel.find().populate('seller'),
     query,
   )
     .search(productFields)
@@ -135,7 +136,7 @@ const updateProductIntoDB = async (id: string, payload: Partial<TProduct>) => {
 const deleteProductFromDB = async (id: string) => {
   const result = await ProductModel.findByIdAndUpdate(
     id,
-    { isDeleted: true },
+    { isDelete: true },
     {
       new: true,
     },
