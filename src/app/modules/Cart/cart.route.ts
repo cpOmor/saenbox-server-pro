@@ -1,28 +1,28 @@
 import express from 'express';
-import { CardControllers } from './card.controller';
+import { CartControllers } from './cart.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-card',
+  '/create-cart',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
-  CardControllers.createCard,
+  CartControllers.createCart,
 );
 
-router.get('/', CardControllers.getCard);
+router.get('/:id', CartControllers.getCart);
 
-router.patch(
-  '/:id',
+router.put(
+  '/',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.updateCourseValidationSchema),
-  CardControllers.updateCard,
+  CartControllers.updateCart,
 );
 
 router.delete(
   '/:id',
   // auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
-  CardControllers.deleteCard,
+  CartControllers.deleteCart,
 );
 
-export const CardRoutes = router;
+export const CartRoutes = router;
