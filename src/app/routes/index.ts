@@ -7,7 +7,7 @@ import { BuyerRoutes } from '../modules/Buyer/buyer.route';
 import { CategoryRoute } from '../modules/Categoric/categoric.route';
 import { ProductRoutes } from '../modules/Product/product.route';
 import { BannerRoutes } from '../modules/Banner/banner.route';
-import { CardRoutes } from '../modules/Card/card.route';
+import { CartRoutes } from '../modules/Cart/cart.route';
 import { OrderRoutes } from '../modules/Order/order.route';
 
 const router = Router();
@@ -46,8 +46,8 @@ const moduleRoutes = [
     route: BannerRoutes,
   },
   {
-    path: '/card',
-    route: CardRoutes,
+    path: '/cart',
+    route: CartRoutes,
   },
   {
     path: '/order',

@@ -2,11 +2,12 @@
 
 import { Types } from 'mongoose';
 
-export type TCard = {
+export type TCart = {
   user: Types.ObjectId;
-  product: Types.ObjectId;
-  quantity : number;
+  productId: Types.ObjectId;
+  productName: string;
+  unit: number;
+  image: string;
+  quantity: number;
   isDeleted: boolean;
 };
-
-

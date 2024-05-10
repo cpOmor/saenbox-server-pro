@@ -8,6 +8,7 @@ import AppError from '../../errors/AppError';
 import { User } from '../User/user.model';
 import { TForgetPassword, TLoginUser } from './auth.interface';
 import { createToken, verifyToken } from './auth.utils';
+import { Types } from 'mongoose';
 
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
@@ -51,13 +52,19 @@ const loginUser = async (payload: TLoginUser) => {
       'Oops! The passwords entered do not match. Please try again.',
     );
   }
-  console.log(isPasswordMatch);
 
   //create token and sent to the  client
 
-  const jwtPayload = {
+  type TJwtPayload = {
+    email: string | undefined;
+    role: string | undefined;
+    id: Types.ObjectId | undefined;
+  };
+
+  const jwtPayload: TJwtPayload = {
     email: user.email,
     role: user.role,
+    id: user._id,
   };
 
   const accessToken = createToken(
@@ -184,9 +191,7 @@ const forgetPassword = async (payload: TForgetPassword) => {
   // checking if the user is exist
   const user = await User.findOne({ email: payload.email });
 
-
-  console.log(  payload  , 'file name : auth.service line number : +-188');
-  
+  console.log(payload, 'file name : auth.service line number : +-188');
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -204,7 +209,7 @@ const forgetPassword = async (payload: TForgetPassword) => {
   if (userStatus === 'blocked') {
     throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
   }
-  
+
   const hashPassword = await bcrypt.hash(
     payload.password,
     Number(config.bcrypt_salt_rounds),
@@ -212,7 +217,7 @@ const forgetPassword = async (payload: TForgetPassword) => {
 
   const result = User.updateOne(
     { email: payload.email },
-    { password:  hashPassword },
+    { password: hashPassword },
   );
 
   return result;
