@@ -14,8 +14,34 @@ const createOrder = catchAsync(async (req, res) => {
   });
 });
 
+const getAllOrder = catchAsync(async (req, res) => {
+  const result = await OrderServices.getAllOrderFromDB(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order are retrieved successfully',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
+const getSingleOrder = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await OrderServices.getSingleOrderFromDB(id as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order are retrieved successfully',
+    data: result,
+  });
+});
+
 const getOrder = catchAsync(async (req, res) => {
-  const result = await OrderServices.getOrderFromDB();
+  const { id } = req.params;
+
+  const result = await OrderServices.getOrderFromDB(id as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -26,9 +52,7 @@ const getOrder = catchAsync(async (req, res) => {
 });
 
 const updateOrder = catchAsync(async (req, res) => {
-  const { id } = req.params;
-
-  const result = await OrderServices.updateOrderIntoDB(id, req.body);
+  const result = await OrderServices.updateOrderIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -50,9 +74,10 @@ const deleteOrder = catchAsync(async (req, res) => {
   });
 });
 
-
 export const OrderControllers = {
   createOrder,
+  getAllOrder,
+  getSingleOrder,
   getOrder,
   updateOrder,
   deleteOrder,
