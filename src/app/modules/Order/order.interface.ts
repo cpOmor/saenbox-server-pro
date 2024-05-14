@@ -17,6 +17,7 @@ export type TOrder = {
   quantity: number;
   subtotal: number;
   payment: boolean;
+  reviewAdded: boolean;
   deliveryFee: number;
   status: TStatus;
   orderDate: string;

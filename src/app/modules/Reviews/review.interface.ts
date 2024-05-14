@@ -4,12 +4,13 @@ import { Types } from 'mongoose';
 
 export type TReview = {
   product: Types.ObjectId;
+  order?: Types.ObjectId;
   user: Types.ObjectId;
   seller: Types.ObjectId;
   productRating: number;
   sellerServiceRating: number;
   deliveryServiceRating: number;
-  image: string;
+  image: string[];
   description: string;
   isDeleted: boolean;
 };

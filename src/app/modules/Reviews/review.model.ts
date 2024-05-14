@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TReview } from './review.interface';
 
-
 const ReviewSchema = new Schema<TReview>(
   {
     product: {
@@ -29,7 +28,7 @@ const ReviewSchema = new Schema<TReview>(
       required: [true, 'Delivery service rating is required'],
     },
     image: {
-      type: String,
+      type: [String],
     },
     description: {
       type: String,
@@ -45,6 +44,4 @@ const ReviewSchema = new Schema<TReview>(
   },
 );
 
-
 export const ReviewModel = model<TReview>('Reviews', ReviewSchema);
-

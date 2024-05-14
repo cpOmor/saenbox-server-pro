@@ -1,35 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
-import { reviewFields, thisTime } from './review.constant';
+import AppError from '../../errors/AppError';
+import { OrderModel } from '../Order/order.model';
+import { thisTime } from './review.constant';
 import { TReview } from './review.interface';
 import { ReviewModel } from './review.model';
 
 const createReviewIntoDB = async (payload: TReview) => {
+  const isOrder = await OrderModel.findById(payload.order);
+
+  if (!isOrder) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Order cannot find!');
+  }
+  const user = isOrder.user;
+  const product = isOrder.product;
+  payload.seller = user;
+  payload.product = product;
   const result = await ReviewModel.create(payload);
   return result;
 };
 
 const getAllReviewFromDB = async (query: Record<string, unknown>) => {
-  const reviewQuery = new QueryBuilder(ReviewModel.find(), query)
-    .search(reviewFields)
-    .filter()
-    .sort()
-    .paginate()
-    .fields();
-  const result = await reviewQuery.modelQuery;
-  const meta = await reviewQuery.countTotal();
+  // const reviewQuery = new QueryBuilder(ReviewModel.find(), query)
+  //   .search(reviewFields)
+  //   .filter()
+  //   .sort()
+  //   .paginate()
+  //   .fields();
+  // const result = await reviewQuery.modelQuery;
+  // const meta = await reviewQuery.countTotal();
 
-  return {
-    meta,
-    result,
-  };
+  // return {
+  //   meta,
+  //   result,
+  // };
+  return;
 };
 
-const getSingleReviewFromDB = async (id: string) => {
-
-  const result = await ReviewModel.findById(id);
-
+const getReviewFromDB = async (id: string) => {
+  const result = await ReviewModel.findOne(id);
 
   return result;
 };
@@ -74,7 +85,7 @@ const deleteReviewFromDB = async (id: string) => {
 export const ReviewServices = {
   createReviewIntoDB,
   getAllReviewFromDB,
-  getSingleReviewFromDB,
+  getReviewFromDB,
   geTReviewFromDB,
   updateReviewIntoDB,
   deleteReviewFromDB,

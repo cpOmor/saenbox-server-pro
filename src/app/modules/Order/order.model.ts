@@ -53,6 +53,10 @@ const OrderSchema = new Schema<TOrder>(
       type: Boolean,
       default: false,
     },
+    reviewAdded: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

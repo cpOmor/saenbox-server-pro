@@ -10,9 +10,9 @@ router.post(
   ReviewControllers.createReview,
 );
 
-router.get('/', ReviewControllers.getAllReview);
-router.get('/:id', ReviewControllers.getReview);
-router.get('/single-review/:id', ReviewControllers.getSingleReview);
+// router.get('/', ReviewControllers.getAllReview);
+router.get('/', ReviewControllers.getReview);
+// router.get('/single-review/:id', ReviewControllers.getSingleReview);
 
 router.put(
   '/',
