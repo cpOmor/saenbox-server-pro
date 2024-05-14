@@ -1,30 +1,28 @@
 import express from 'express';
-import { OrderControllers } from './order.controller';
+import { AddressControllers } from './address.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-order',
+  '/create-address',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
-  OrderControllers.createOrder,
+  AddressControllers.createAddress,
 );
 
-router.get('/', OrderControllers.getAllOrder);
-router.get('/:id', OrderControllers.getOrder);
-router.get('/single-order/:id', OrderControllers.getSingleOrder);
+router.get('/:user', AddressControllers.getAddress);
 
-router.put(
-  '/',
+router.patch(
+  '/:id',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.updateCourseValidationSchema),
-  OrderControllers.updateOrder,
+  AddressControllers.updateAddress,
 );
 
 router.delete(
   '/:id',
   // auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
-  OrderControllers.deleteOrder,
+  AddressControllers.deleteAddress,
 );
 
-export const OrderRoutes = router;
+export const AddressRoutes = router;

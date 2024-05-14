@@ -1,30 +1,30 @@
 import express from 'express';
-import { OrderControllers } from './order.controller';
+import { ReviewControllers } from './review.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-order',
+  '/create-review',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
-  OrderControllers.createOrder,
+  ReviewControllers.createReview,
 );
 
-router.get('/', OrderControllers.getAllOrder);
-router.get('/:id', OrderControllers.getOrder);
-router.get('/single-order/:id', OrderControllers.getSingleOrder);
+// router.get('/', ReviewControllers.getAllReview);
+router.get('/', ReviewControllers.getReview);
+// router.get('/single-review/:id', ReviewControllers.getSingleReview);
 
 router.put(
   '/',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.updateCourseValidationSchema),
-  OrderControllers.updateOrder,
+  ReviewControllers.updateReview,
 );
 
 router.delete(
   '/:id',
   // auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
-  OrderControllers.deleteOrder,
+  ReviewControllers.deleteReview,
 );
 
-export const OrderRoutes = router;
+export const ReviewRoutes = router;
