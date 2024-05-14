@@ -40,7 +40,13 @@ const getAllReviewFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getReviewFromDB = async (id: string) => {
-  const result = await ReviewModel.findOne(id);
+  const result = await ReviewModel.find({ product: id }).populate('user');
+
+  return result;
+};
+
+const getReviewForSellerFromDB = async (id: string) => {
+  const result = await ReviewModel.find({ product: id }).populate('user');
 
   return result;
 };
@@ -86,6 +92,7 @@ export const ReviewServices = {
   createReviewIntoDB,
   getAllReviewFromDB,
   getReviewFromDB,
+  getReviewForSellerFromDB,
   geTReviewFromDB,
   updateReviewIntoDB,
   deleteReviewFromDB,
