@@ -1,31 +1,28 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
-import { USER_ROLE } from '../User/user.constant';
-import { BannerControllers } from './banner.controller';
+import { AddressControllers } from './address.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-banner',
+  '/create-address',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller),
   // validateRequest(CourseValidations.createCourseValidationSchema),
-  BannerControllers.createBanner,
+  AddressControllers.createAddress,
 );
 
-router.get('/', BannerControllers.getBanner);
+router.get('/:user', AddressControllers.getAddress);
 
 router.patch(
   '/:id',
   // auth(USER_ROLE.admin, USER_ROLE.saenBoxSeller, USER_ROLE.seller),
   // validateRequest(CourseValidations.updateCourseValidationSchema),
-  BannerControllers.updateBanner,
+  AddressControllers.updateAddress,
 );
 
 router.delete(
   '/:id',
   // auth(USER_ROLE.saenBoxSeller, USER_ROLE.admin),
-  BannerControllers.deleteBanner,
+  AddressControllers.deleteAddress,
 );
 
-export const BannerRoutes = router;
+export const AddressRoutes = router;

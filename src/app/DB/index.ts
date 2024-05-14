@@ -10,7 +10,7 @@ const superAdmin = {
     lastName: 'Admin',
   },
   email: 'admin@gmail.com',
-  password: 'Super@admin1234',
+  password: '123456',
   needsPasswordChange: false,
   role: USER_ROLE.admin,
   status: 'in-progress',

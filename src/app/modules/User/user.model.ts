@@ -25,9 +25,9 @@ export const userNameSchema = new Schema<TUserName>({
 
 const userSchema = new Schema<TUser, UserModel>(
   {
-    name: {
-      type: userNameSchema,
-    },
+    // name: {
+    //   type: userNameSchema,
+    // },
     email: {
       type: String,
       // required: true,

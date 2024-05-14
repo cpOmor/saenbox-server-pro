@@ -7,6 +7,10 @@ import { BuyerRoutes } from '../modules/Buyer/buyer.route';
 import { CategoryRoute } from '../modules/Categoric/categoric.route';
 import { ProductRoutes } from '../modules/Product/product.route';
 import { BannerRoutes } from '../modules/Banner/banner.route';
+import { CartRoutes } from '../modules/Cart/cart.route';
+import { OrderRoutes } from '../modules/Order/order.route';
+import { AddressRoutes } from '../modules/Address/address.route';
+import { ReviewRoutes } from '../modules/Reviews/review.route';
 
 const router = Router();
 
@@ -42,6 +46,22 @@ const moduleRoutes = [
   {
     path: '/banner',
     route: BannerRoutes,
+  },
+  {
+    path: '/cart',
+    route: CartRoutes,
+  },
+  {
+    path: '/order',
+    route: OrderRoutes,
+  },
+  {
+    path: '/address',
+    route: AddressRoutes,
+  },
+  {
+    path: '/review',
+    route: ReviewRoutes,
   },
 ];
 
