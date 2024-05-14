@@ -9,10 +9,13 @@ const ReviewSchema = new Schema<TReview>(
     },
     user: {
       type: Schema.Types.ObjectId,
+      ref : "User",
       required: [true, 'You are not authenticated user'],
     },
     seller: {
       type: Schema.Types.ObjectId,
+      ref : "User",
+
       required: [true, 'Select a seller'],
     },
     productRating: {
