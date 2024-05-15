@@ -3,6 +3,7 @@
 import { Types } from 'mongoose';
 
 export type TReview = {
+  id? : string;
   product: Types.ObjectId;
   order?: Types.ObjectId;
   user: Types.ObjectId;
@@ -12,5 +13,6 @@ export type TReview = {
   deliveryServiceRating: number;
   image: string[];
   description: string;
+  response?: string;
   isDeleted: boolean;
 };

@@ -37,6 +37,9 @@ const ReviewSchema = new Schema<TReview>(
       type: String,
       required: [true, 'Description is required'],
     },
+    response: {
+      type: String,
+    },
     isDeleted: {
       type: Boolean,
       default: false,

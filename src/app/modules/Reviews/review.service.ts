@@ -46,8 +46,7 @@ const getReviewFromDB = async (id: string) => {
 };
 
 const getReviewForSellerFromDB = async (id: string) => {
-  const result = await ReviewModel.find({ product: id }).populate('user');
-
+  const result = await ReviewModel.find({ seller: id });
   return result;
 };
 
@@ -56,26 +55,11 @@ const geTReviewFromDB = async (user: string) => {
   return result;
 };
 
-const updateReviewIntoDB = async (payload: any) => {
-  const status = { status: payload?.data?.status };
+const updateReviewIntoDB = async (payload: TReview) => {
+  const { id } = payload;
+  const result = await ReviewModel.findByIdAndUpdate(id, payload);
 
-  if (status.status == 'shipped') {
-    const deliveryDate = thisTime();
-
-    const result = await ReviewModel.findOneAndUpdate(
-      { _id: payload?.reviewId },
-      { ...status, deliveryDate },
-    );
-
-    return result;
-  } else {
-    const result = await ReviewModel.findOneAndUpdate(
-      { _id: payload?.reviewId },
-      status,
-    );
-
-    return result;
-  }
+  return result;
 };
 
 const deleteReviewFromDB = async (id: string) => {

@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { ReviewServices } from './review.service';
+import { TReview } from './review.interface';
 
 const createReview = catchAsync(async (req, res) => {
   const result = await ReviewServices.createReviewIntoDB(req.body);
@@ -27,8 +28,8 @@ const getAllReview = catchAsync(async (req, res) => {
 });
 
 const getReview = catchAsync(async (req, res) => {
-  const {id} =  req.params;
-  
+  const { id } = req.params;
+
   const result = await ReviewServices.getReviewFromDB(id as string);
 
   sendResponse(res, {
@@ -39,8 +40,8 @@ const getReview = catchAsync(async (req, res) => {
   });
 });
 const getReviewForSeller = catchAsync(async (req, res) => {
-  const {id} =  req.params;
-  
+  const { id } = req.params;
+
   const result = await ReviewServices.getReviewForSellerFromDB(id as string);
 
   sendResponse(res, {
@@ -65,8 +66,7 @@ const getReviewForSeller = catchAsync(async (req, res) => {
 // });
 
 const updateReview = catchAsync(async (req, res) => {
-  const result = await ReviewServices.updateReviewIntoDB(req.body);
-
+  const result = await ReviewServices.updateReviewIntoDB(req.body as TReview | unknown);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -77,7 +77,7 @@ const updateReview = catchAsync(async (req, res) => {
 
 const deleteReview = catchAsync(async (req, res) => {
   const { id } = req.params;
-  
+
   const result = await ReviewServices.deleteReviewFromDB(id);
 
   sendResponse(res, {
